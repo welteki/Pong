@@ -1,0 +1,28 @@
+﻿<Window x:Class="Pong.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Pong"
+        mc:Ignorable="d"
+        KeyUp="Window_KeyUp"
+        Title="MainWindow" Height="350" Width="525">
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding MoveLeftCommand}" Key="Left"/>
+        <KeyBinding Command="{Binding MoveRightCommand}" Key="Right"/>
+    </Window.InputBindings>
+    <Grid>
+        <Border x:Name="PlayBorder" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="227" Margin="44,71,0,0" VerticalAlignment="Top" Width="448"/>
+        <Canvas x:Name="PlayField" HorizontalAlignment="Left" Height="227" Margin="44,71,0,0" VerticalAlignment="Top" Width="448">
+            <Ellipse 
+                x:Name="Object" Fill="#FFF44800" Height="{Binding Ball.Size}" Canvas.Left="{Binding Ball.X}" Stroke="Black" 
+                Canvas.Top="{Binding Ball.Y}" Width="{Binding Ball.Size}"/>
+            <Rectangle 
+                Fill="#FFF84205" Height="{Binding Paddle.Height}" Canvas.Left="{Binding Paddle.X}" Stroke="Black" 
+                Canvas.Top="{Binding Paddle.Y}" Width="{Binding Paddle.Width}"/>
+            <Label x:Name="lblScore" Content="{Binding ScoreBoard.Score}" Canvas.Left="1"/>
+        </Canvas>
+        <Button Command="{Binding StartCommand}" x:Name="btnPlay" Content="Play" HorizontalAlignment="Left" Margin="44,28,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Command="{Binding StopCommand}" x:Name="btnQuit" Content="Quit" HorizontalAlignment="Left" Margin="148,28,0,0" VerticalAlignment="Top" Width="75"/>
+    </Grid>
+</Window>
