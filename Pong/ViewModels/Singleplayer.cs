@@ -91,7 +91,7 @@ namespace Pong.ViewModels
         }
 
         /// <summary>
-        /// Checks for collisions between the ball and the paddle.
+        /// Checks for collisions between the ball and the paddle
         /// </summary>
         private bool CheckPadCollision()
         {
@@ -100,7 +100,7 @@ namespace Pong.ViewModels
         }
 
         /// <summary>
-        /// Checks wether the ball collides with the paddle or walls and takes necessary actions.
+        /// Checks wether the ball collides with the paddle or walls and takes necessary actions
         /// </summary>
         private void CheckCollision()
         {
@@ -133,11 +133,27 @@ namespace Pong.ViewModels
         {
             if (!paddle.NotMoving)
             {
-                if (paddle.MoveLeft)
+                if (paddle.MoveLeft && paddle.CanMoveLeft)
                     paddle.X -= paddle.Speed;
-                else if (!paddle.MoveLeft)
+                else if (!paddle.MoveLeft && paddle.CanMoveRight)
                     paddle.X += paddle.Speed;
             }
+        }
+
+        /// <summary>
+        /// Checks if the paddle is at its maxleft or maxright position and sets a bool CanMoveLeft or CanMoveRight
+        /// </summary>
+        private void ValidateMove()
+        {
+            if (paddle.X <= 0)
+                paddle.CanMoveLeft = false;
+            else 
+                paddle.CanMoveLeft = true;
+
+            if (paddle.X >= DrawingArea.ActualWidth - paddle.Width)
+                paddle.CanMoveRight = false;
+            else
+                paddle.CanMoveRight = true;
         }
 
         private void timer_Tick(object sender, EventArgs e)
@@ -145,6 +161,7 @@ namespace Pong.ViewModels
             CheckCollision();
             MoveBall();
 
+            ValidateMove();
             MovePaddle();
         }
 

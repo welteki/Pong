@@ -16,6 +16,8 @@ namespace Pong.Models
         private double speed;
         private bool moveleft;
         private bool notmoving;
+        private bool canmoveleft;
+        private bool canmoveright;
 
         public double X
         {
@@ -105,6 +107,32 @@ namespace Pong.Models
             {
                 notmoving = value;
                 onPropertyChanged("MoveRight");
+            }
+        }
+
+        public bool CanMoveLeft
+        {
+            get
+            {
+                return canmoveleft;
+            }
+            set
+            {
+                canmoveleft = value;
+                onPropertyChanged("CanMoveLeft");
+            }
+        }
+
+        public bool CanMoveRight
+        {
+            get
+            {
+                return canmoveright;
+            }
+            set
+            {
+                canmoveright = value;
+                onPropertyChanged("CanMoveRight");
             }
         }
 
