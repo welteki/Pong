@@ -19,11 +19,10 @@ namespace Pong.ViewModels
         private ScoreBoard scoreboard;
         private DispatcherTimer timer;
         private Vector z;
-        private Canvas drawingarea;     //Workaround
+        private Canvas drawingarea;
 
-        public Singleplayer(Canvas DrawingArea)   //Vind andere manier om DrawingArea mee te geven. (Via xml?)
+        public Singleplayer(Canvas DrawingArea)   //Vind andere manier om DrawingArea mee te geven.
         {
-            //Initiële waarden in constroctor, kunnen later uit database of xml gehaald worden
             ball = new Ball();
             paddle = new Paddle();
             scoreboard = new ScoreBoard();
@@ -91,36 +90,47 @@ namespace Pong.ViewModels
             z = Convert.VectorConverter.AngleToVector(ball.Angle);
         }
 
-        private bool CheckCollision()
+        /// <summary>
+        /// Checks for collisions between the ball and the paddle.
+        /// </summary>
+        private bool CheckPadCollision()
         {
-            bool result = ball.Y >= paddle.Y && ball.Y <= paddle.Y + 1 &&ball.X >= paddle.X && ball.X <= paddle.X + paddle.Width;
+            bool result = ball.Y >= paddle.Y - 2 && ball.Y <= paddle.Y + 1 &&ball.X >= paddle.X && ball.X <= paddle.X + paddle.Width;
             return result;
         }
 
-        //private Vector ChangeAngle()
-        //{
-
-        //}
-
-        private void timer_Tick(object sender, EventArgs e)
+        /// <summary>
+        /// Checks wether the ball collides with the paddle or walls and takes necessary actions.
+        /// </summary>
+        private void CheckCollision()
         {
             if (ball.Y <= 0)
                 z.Y = -z.Y;
             else if (ball.X <= 0 || ball.X >= DrawingArea.ActualWidth - ball.Size)
                 z.X = -z.X;
-            else if (CheckCollision())
+            else if (CheckPadCollision())
             {
                 z.Y = -z.Y;
                 scoreboard.Score += 1;
-            }               
+            }
             else if (ball.Y > DrawingArea.ActualHeight)
                 ResetGame();
-          
+        }
 
-
+        /// <summary>
+        /// Moves the ball in the direction specified by vector z with a speed set in ball.Speed
+        /// </summary>
+        private void MoveBall()
+        {
             ball.X = ball.X + z.X * ball.Speed;
             ball.Y = ball.Y + z.Y * ball.Speed;
+        }
 
+        /// <summary>
+        /// Moves the paddle in the direction specified by the player with a speed set in paddle.Speed
+        /// </summary>
+        private void MovePaddle()
+        {
             if (!paddle.NotMoving)
             {
                 if (paddle.MoveLeft)
@@ -130,14 +140,18 @@ namespace Pong.ViewModels
             }
         }
 
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            CheckCollision();
+            MoveBall();
+
+            MovePaddle();
+        }
+
         #endregion
 
 
         #region Properties
-
-        /// <summary>
-        /// Gets the ball instance
-        /// </summary>
 
         public Ball Ball
         {
@@ -217,9 +231,7 @@ namespace Pong.ViewModels
         {
             get
             {
-                //if (paddle.X <= 0)
-                //    return false;
-                return true;
+                    return true;
             }
         }
 
@@ -233,8 +245,6 @@ namespace Pong.ViewModels
         {
             get
             {
-                //if (paddle.X >= DrawingArea.ActualHeight - paddle.Width)
-                //    return false;
                 return true;
             }
         }
