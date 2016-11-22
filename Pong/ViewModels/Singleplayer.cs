@@ -14,15 +14,16 @@ namespace Pong.ViewModels
 {
     internal class Singleplayer                   //Zoek betekenis internal op
     {
+        private PlayField playfield;
         private Ball ball;
         private Paddle paddle;
         private ScoreBoard scoreboard;
         private DispatcherTimer timer;
         private Vector z;
-        private Canvas drawingarea;
 
-        public Singleplayer(Canvas DrawingArea)   //Vind andere manier om DrawingArea mee te geven.
+        public Singleplayer()   //Vind andere manier om DrawingArea mee te geven.
         {
+            playfield = new PlayField();
             ball = new Ball();
             paddle = new Paddle();
             scoreboard = new ScoreBoard();
@@ -31,8 +32,6 @@ namespace Pong.ViewModels
             timer.Interval = new TimeSpan(0, 0, 0, 0, 10);
             timer.IsEnabled = false;
             timer.Tick += timer_Tick;
-
-            this.DrawingArea = DrawingArea;     //Workaround
 
             StartCommand = new StartCommand(this);
             StopCommand = new StopCommand(this);
@@ -72,6 +71,9 @@ namespace Pong.ViewModels
 
         private void ResetGame()
         {
+            playfield.Height = 227;
+            playfield.Width = 448;
+
             scoreboard.Score = 0;
 
             ball.X = 50;
@@ -82,13 +84,23 @@ namespace Pong.ViewModels
 
             paddle.Width = 60;
             paddle.Height = 10;
-            paddle.Y = DrawingArea.ActualHeight - 10 - paddle.Height;
-            paddle.X = DrawingArea.ActualWidth / 2 - paddle.Width / 2;
+            paddle.Y = playfield.Height - 10 - paddle.Height;
+            paddle.X = playfield.Width / 2 - paddle.Width / 2;
             paddle.Speed = 2;
             paddle.NotMoving = true;
 
             z = Convert.VectorConverter.AngleToVector(ball.Angle);
         }
+
+        /// <summary>
+        /// Changes the angle af the ball when it collides with the Paddle
+        /// </summary>
+        //private void ChangeAngle()
+        //{
+        //    double angle = Convert.VectorConverter.VectorToAngle(z);
+
+        //    double newAngle = angle + Math.PI / 4 * ((Paddle.X - Ball.X)/ 0.5 * Paddle.Width);
+        //}
 
         /// <summary>
         /// Checks for collisions between the ball and the paddle
@@ -106,14 +118,14 @@ namespace Pong.ViewModels
         {
             if (ball.Y <= 0)
                 z.Y = -z.Y;
-            else if (ball.X <= 0 || ball.X >= DrawingArea.ActualWidth - ball.Size)
+            else if (ball.X <= 0 || ball.X >= playfield.Width - ball.Size)
                 z.X = -z.X;
             else if (CheckPadCollision())
             {
                 z.Y = -z.Y;
                 scoreboard.Score += 1;
             }
-            else if (ball.Y > DrawingArea.ActualHeight)
+            else if (ball.Y > playfield.Height)
                 ResetGame();
         }
 
@@ -150,7 +162,7 @@ namespace Pong.ViewModels
             else 
                 paddle.CanMoveLeft = true;
 
-            if (paddle.X >= DrawingArea.ActualWidth - paddle.Width)
+            if (paddle.X >= playfield.Width - paddle.Width)
                 paddle.CanMoveRight = false;
             else
                 paddle.CanMoveRight = true;
@@ -169,6 +181,14 @@ namespace Pong.ViewModels
 
 
         #region Properties
+
+        public PlayField Playfield
+        {
+            get
+            {
+                return playfield;
+            }
+        }
 
         public Ball Ball
         {
@@ -191,18 +211,6 @@ namespace Pong.ViewModels
             get
             {
                 return scoreboard;
-            }
-        }
-
-        public Canvas DrawingArea       //Workaround (betere oplossing?)
-        {
-            get
-            {
-                return drawingarea;
-            }
-            set
-            {
-                drawingarea = value;
             }
         }
 

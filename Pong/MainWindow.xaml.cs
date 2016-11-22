@@ -22,12 +22,12 @@ namespace Pong
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Singleplayer singleplayer; 
+        private Singleplayer singleplayer;
 
         public MainWindow()
         {
             InitializeComponent();
-            singleplayer= new Singleplayer(PlayField);
+            singleplayer= new Singleplayer();
             DataContext = singleplayer;
         }
 

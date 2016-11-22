@@ -13,7 +13,7 @@
     </Window.InputBindings>
     <Grid>
         <Border x:Name="PlayBorder" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="227" Margin="44,71,0,0" VerticalAlignment="Top" Width="448"/>
-        <Canvas x:Name="PlayField" HorizontalAlignment="Left" Height="227" Margin="44,71,0,0" VerticalAlignment="Top" Width="448">
+        <Canvas x:Name="PlayField" HorizontalAlignment="Left" Height="{Binding PlayField.Height}" Margin="44,71,0,0" VerticalAlignment="Top" Width="{Binding PlayField.Width}">
             <Ellipse 
                 x:Name="Object" Fill="#FFF44800" Height="{Binding Ball.Size}" Canvas.Left="{Binding Ball.X}" Stroke="Black" 
                 Canvas.Top="{Binding Ball.Y}" Width="{Binding Ball.Size}"/>
