@@ -15,7 +15,6 @@ namespace Pong.Models
         private double angle;
         private double speed;
         private double size;
-        private bool moving_up;
         
         public double X
         {
@@ -79,19 +78,6 @@ namespace Pong.Models
             {
                 size = value;
                 onPropertyChanged("Size");
-            }
-        }
-
-        public bool MovingUp
-        {
-            get
-            {
-                return moving_up;
-            }
-            set
-            {
-                moving_up = value;
-                onPropertyChanged("X");
             }
         }
 

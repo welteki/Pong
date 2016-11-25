@@ -21,7 +21,7 @@ namespace Pong.ViewModels
         private DispatcherTimer timer;
         private Vector z;
 
-        public Singleplayer()   //Vind andere manier om DrawingArea mee te geven.
+        public Singleplayer()
         {
             playfield = new PlayField();
             ball = new Ball();
@@ -78,7 +78,7 @@ namespace Pong.ViewModels
 
             ball.X = 50;
             ball.Y = 50;
-            ball.Angle = 70;
+            ball.Angle = 225;
             ball.Speed = 3;
             ball.Size = 10;
 
@@ -89,25 +89,36 @@ namespace Pong.ViewModels
             paddle.Speed = 2;
             paddle.NotMoving = true;
 
+
             z = Convert.VectorConverter.AngleToVector(ball.Angle);
         }
 
         /// <summary>
-        /// Changes the angle af the ball when it collides with the Paddle
+        /// Changes the angle of the ball when there is a collision with the paddle
         /// </summary>
-        //private void ChangeAngle()
-        //{
-        //    double angle = Convert.VectorConverter.VectorToAngle(z);
+        private void ChangeAngle()
+        {
+            double factor = (paddle.X + (paddle.Width / 2) - ball.X) / (paddle.Width / 2);     //returns value between -1 and 1
+            double angle = Convert.VectorConverter.VectorToAngle(z) - 180;
 
-        //    double newAngle = angle + Math.PI / 4 * ((Paddle.X - Ball.X)/ 0.5 * Paddle.Width);
-        //}
+            if (angle < 90)
+                angle += 90 * Math.Abs(factor);
+            else if (angle > 90)
+                angle -= 90 * Math.Abs(factor);
+            else if (angle == 90 && factor <= 0)
+                angle += 90 * Math.Abs(factor);
+            else if (angle == 90 && factor > 0)
+                angle -= 90 * Math.Abs(factor);
+
+            z = Convert.VectorConverter.AngleToVector(angle);
+        }
 
         /// <summary>
         /// Checks for collisions between the ball and the paddle
         /// </summary>
         private bool CheckPadCollision()
         {
-            bool result = ball.Y >= paddle.Y - 2 && ball.Y <= paddle.Y + 1 &&ball.X >= paddle.X && ball.X <= paddle.X + paddle.Width;
+            bool result = ball.Y >= paddle.Y - 4 && ball.Y <= paddle.Y + 1 &&ball.X >= paddle.X && ball.X <= paddle.X + paddle.Width;
             return result;
         }
 
@@ -122,7 +133,7 @@ namespace Pong.ViewModels
                 z.X = -z.X;
             else if (CheckPadCollision())
             {
-                z.Y = -z.Y;
+                ChangeAngle();
                 scoreboard.Score += 1;
             }
             else if (ball.Y > playfield.Height)

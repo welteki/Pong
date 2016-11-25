@@ -14,6 +14,7 @@ namespace Pong.Models
         private double height;
         private double width;
         private double speed;
+        private double reflectangle;
         private bool moveleft;
         private bool notmoving;
         private bool canmoveleft;
@@ -81,6 +82,19 @@ namespace Pong.Models
             {
                 speed = value;
                 onPropertyChanged("Speed");
+            }
+        }
+
+        public double ReflectAngle
+        {
+            get
+            {
+                return reflectangle;
+            }
+            set
+            {
+                reflectangle = value;
+                onPropertyChanged("ReflectAngle");
             }
         }
 
