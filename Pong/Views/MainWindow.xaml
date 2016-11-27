@@ -5,24 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Pong"
         mc:Ignorable="d"
-        KeyUp="Window_KeyUp"
-        Title="Pong" Height="369" Width="551">
-    <Window.InputBindings>
-        <KeyBinding Command="{Binding MoveLeftCommand}" Key="Left"/>
-        <KeyBinding Command="{Binding MoveRightCommand}" Key="Right"/>
-    </Window.InputBindings>
-    <Grid>
-        <Border x:Name="PlayBorder" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="227" Margin="44,71,0,0" VerticalAlignment="Top" Width="448"/>
-        <Canvas x:Name="PlayField" HorizontalAlignment="Left" Height="{Binding PlayField.Height}" Margin="44,71,0,0" VerticalAlignment="Top" Width="{Binding PlayField.Width}">
-            <Ellipse 
-                x:Name="Object" Fill="#FFF44800" Height="{Binding Ball.Size}" Canvas.Left="{Binding Ball.X}" Stroke="Black" 
-                Canvas.Top="{Binding Ball.Y}" Width="{Binding Ball.Size}"/>
-            <Rectangle 
-                Fill="#FFF84205" Height="{Binding Paddle.Height}" Canvas.Left="{Binding Paddle.X}" Stroke="Black" 
-                Canvas.Top="{Binding Paddle.Y}" Width="{Binding Paddle.Width}"/>
-            <Label x:Name="lblScore" Content="{Binding ScoreBoard.Score}" Canvas.Left="1"/>
-        </Canvas>
-        <Button Command="{Binding StartCommand}" x:Name="btnPlay" Content="Play" HorizontalAlignment="Left" Margin="44,28,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Command="{Binding StopCommand}" x:Name="btnQuit" Content="Quit" HorizontalAlignment="Left" Margin="148,28,0,0" VerticalAlignment="Top" Width="75"/>
-    </Grid>
+        Title="Pong" Height="369" Width="551" Background="Black" ResizeMode="CanMinimize" ShowInTaskbar="False" SizeToContent="WidthAndHeight">
+    
+    <Frame x:Name="frame" Content="" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" NavigationUIVisibility="Hidden"/>
+
 </Window>
