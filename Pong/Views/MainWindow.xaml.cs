@@ -15,7 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
-namespace Pong
+namespace Pong.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

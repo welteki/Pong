@@ -59,11 +59,11 @@
     <Compile Include="Commands\MoveRightCommand.cs" />
     <Compile Include="Commands\StartCommand.cs" />
     <Compile Include="Commands\StopCommand.cs" />
-    <Compile Include="CountDownTimer.cs" />
+    <Compile Include="Assets\CountDownTimer.cs" />
     <Compile Include="Models\Paddle.cs" />
     <Compile Include="Models\PlayField.cs" />
     <Compile Include="Models\ScoreBoard.cs" />
-    <Compile Include="VectorConverter.cs" />
+    <Compile Include="Assets\VectorConverter.cs" />
     <Compile Include="ViewModels\Singleplayer.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
