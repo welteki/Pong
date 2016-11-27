@@ -1,4 +1,5 @@
-﻿using Pong.Commands;
+﻿using Pong.Assets;
+using Pong.Commands;
 using Pong.Models;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace Pong.ViewModels
         private Ball ball;
         private Paddle paddle;
         private ScoreBoard scoreboard;
+        private Controller controller;
         private DispatcherTimer timer;
         private Vector z;
 
@@ -27,6 +29,7 @@ namespace Pong.ViewModels
             ball = new Ball();
             paddle = new Paddle();
             scoreboard = new ScoreBoard();
+            controller = new Controller();
 
             timer = new DispatcherTimer();
             timer.Interval = new TimeSpan(0, 0, 0, 0, 10);
@@ -49,12 +52,14 @@ namespace Pong.ViewModels
             ResetGame();
             timer.Start();
             timer.IsEnabled = true;
+            controller.openPort();
         }
 
         public void StopGame()
         {
             timer.Stop();
             timer.IsEnabled = false;
+            controller.closePort();
         }
 
         public void MovePaddleLeft()
@@ -128,16 +133,26 @@ namespace Pong.ViewModels
         private void CheckCollision()
         {
             if (ball.Y <= 0)
+            {
                 z.Y = -z.Y;
+                controller.BlinkGreen();
+            }
             else if (ball.X <= 0 || ball.X >= playfield.Width - ball.Size)
+            {
                 z.X = -z.X;
+                controller.BlinkGreen();
+            }
             else if (CheckPadCollision())
             {
                 ChangeAngle();
                 scoreboard.Score += 1;
+                controller.BlinkGreen();
             }
             else if (ball.Y > playfield.Height)
+            {
+                controller.BlinkRed();
                 ResetGame();
+            }
         }
 
         /// <summary>
@@ -184,6 +199,7 @@ namespace Pong.ViewModels
             CheckCollision();
             MoveBall();
 
+            controller.BtnState();
             ValidateMove();
             MovePaddle();
         }

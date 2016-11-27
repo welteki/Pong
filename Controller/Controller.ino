@@ -36,8 +36,7 @@ void loop() {
     else if (inByte == 'C') {
       switchStateLeft = digitalRead(10);
       switchStateRight = digitalRead(11);
-      Serial.println(switchStateLeft);
-      Serial.println(switchStateRight);
+      Serial.write(switchStateLeft);
     }
   }
 }
