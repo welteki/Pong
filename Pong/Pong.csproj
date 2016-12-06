@@ -57,6 +57,8 @@
     </ApplicationDefinition>
     <Compile Include="Commands\MoveLeftCommand.cs" />
     <Compile Include="Commands\MoveRightCommand.cs" />
+    <Compile Include="Commands\PauseCommand.cs" />
+    <Compile Include="Commands\PlayCommand.cs" />
     <Compile Include="Commands\StartCommand.cs" />
     <Compile Include="Commands\StopCommand.cs" />
     <Compile Include="Assets\CountDownTimer.cs" />

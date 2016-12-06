@@ -35,6 +35,8 @@ namespace Pong.ViewModels
 
             StartCommand = new StartCommand(this);
             StopCommand = new StopCommand(this);
+            PlayCommand = new PlayCommand(this);
+            PauseCommand = new PauseCommand(this);
             MoveLeftCommand = new MoveLeftCommand(this);
             MoveRightCommand = new MoveRightCommand(this);
 
@@ -48,13 +50,21 @@ namespace Pong.ViewModels
         {
             ResetGame();
             timer.Start();
-            timer.IsEnabled = true;
         }
 
         public void StopGame()
         {
             timer.Stop();
-            timer.IsEnabled = false;
+        }
+
+        public void PauseGame()
+        {
+            timer.Stop();
+        }
+
+        public void PlayGame()
+        {
+            timer.Start();
         }
 
         public void MovePaddleLeft()
@@ -255,6 +265,18 @@ namespace Pong.ViewModels
                     return true;
                 return false;
             }
+        }
+
+        public ICommand PlayCommand
+        {
+            get;
+            private set;
+        }
+
+        public ICommand PauseCommand
+        {
+            get;
+            private set;
         }
 
         public ICommand MoveLeftCommand
