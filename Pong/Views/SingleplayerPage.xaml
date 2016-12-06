@@ -25,7 +25,10 @@
                 <Label x:Name="lblScore" Content="{Binding ScoreBoard.Score}" Canvas.Left="1" Foreground="White" FontSize="16" FontWeight="Bold" />
             </Canvas>
         </Border>
-        <Button Command="{Binding StartCommand}" x:Name="btnPlay" Content="New Game" HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top" Width="100" Background="#FF090909" Foreground="White" BorderBrush="White" Height="29" BorderThickness="2"/>
+        <Button Command="{Binding StartCommand}" x:Name="btnStart" Content="New Game" HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top" Width="100" Background="#FF090909" Foreground="White" BorderBrush="White" Height="29" BorderThickness="2"/>
         <Button Command="{Binding StopCommand}" x:Name="btnQuit" Content="Quit" HorizontalAlignment="Left" Margin="135,20,0,0" VerticalAlignment="Top" Width="101" Foreground="White" Background="Black" BorderBrush="White" Height="29" BorderThickness="2" Click="btnQuit_Click"/>
+        <Button Command="{Binding PauseCommand}" x:Name="btnPlayPause" HorizontalAlignment="Left" Margin="475,105,0,0" VerticalAlignment="Top" Width="40" Background="Transparent" BorderBrush="Transparent" Height="20" BorderThickness="0" Click="btnQuit_Click">
+            <Image Source="../Resources/Images/play_pause.png"></Image>
+        </Button>
     </Grid>
 </Page>
