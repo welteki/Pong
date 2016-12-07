@@ -203,7 +203,7 @@ namespace Pong.ViewModels
 
         #region Properties
 
-        public PlayField Playfield
+        public PlayField PlayField
         {
             get
             {
