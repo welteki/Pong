@@ -23,6 +23,26 @@ namespace Pong.ViewModels
         private DispatcherTimer timer;
         private Vector z;
 
+        public delegate void CollisionEventHandler(object source, EventArgs args);
+
+        public event CollisionEventHandler Collision;
+
+        protected virtual void onCollsion()
+        {
+            if (Collision != null)
+                Collision(this, EventArgs.Empty);
+        }
+
+        public delegate void MissEventHandler(object source, EventArgs args);
+
+        public event MissEventHandler Miss;
+
+        protected virtual void onMiss()
+        {
+            if (Miss != null)
+                Miss(this, EventArgs.Empty);
+        }
+
         public Singleplayer()
         {
             playfield = new PlayField();
@@ -51,15 +71,11 @@ namespace Pong.ViewModels
         {
             ResetGame();
             timer.Start();
-            timer.IsEnabled = true;
-            controller.openPort();
         }
 
         public void StopGame()
         {
             timer.Stop();
-            timer.IsEnabled = false;
-            controller.closePort();
         }
 
         public void MovePaddleLeft()
@@ -135,23 +151,23 @@ namespace Pong.ViewModels
             if (ball.Y <= 0)
             {
                 z.Y = -z.Y;
-                controller.BlinkGreen();
+                onCollsion();
             }
             else if (ball.X <= 0 || ball.X >= playfield.Width - ball.Size)
             {
                 z.X = -z.X;
-                controller.BlinkGreen();
+                onCollsion();
             }
             else if (CheckPadCollision())
             {
                 ChangeAngle();
                 scoreboard.Score += 1;
-                controller.BlinkGreen();
+                onCollsion();
             }
             else if (ball.Y > playfield.Height)
             {
-                controller.BlinkRed();
                 ResetGame();
+                onMiss();
             }
         }
 
@@ -199,7 +215,6 @@ namespace Pong.ViewModels
             CheckCollision();
             MoveBall();
 
-            controller.BtnState();
             ValidateMove();
             MovePaddle();
         }
