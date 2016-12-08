@@ -33,9 +33,9 @@ namespace Pong.Views
         private void Page_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Left)
-                singleplayer.Paddle.NotMoving = true;
+                singleplayer.StopMovingCommand.Execute(null);
             if (e.Key == Key.Right)
-                singleplayer.Paddle.NotMoving = true;
+                singleplayer.StopMovingCommand.Execute(null);
         }
 
         private void btnQuit_Click(object sender, RoutedEventArgs e)
