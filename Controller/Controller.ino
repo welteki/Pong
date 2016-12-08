@@ -37,6 +37,7 @@ void loop() {
       switchStateLeft = digitalRead(10);
       switchStateRight = digitalRead(11);
       Serial.write(switchStateLeft);
+      Serial.write(switchStateRight);
     }
   }
 }
