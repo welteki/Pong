@@ -62,6 +62,7 @@
     <Compile Include="Commands\StartCommand.cs" />
     <Compile Include="Commands\StopCommand.cs" />
     <Compile Include="Assets\CountDownTimer.cs" />
+    <Compile Include="Commands\StopMovingCommand.cs" />
     <Compile Include="Models\Paddle.cs" />
     <Compile Include="Models\PlayField.cs" />
     <Compile Include="Models\ScoreBoard.cs" />

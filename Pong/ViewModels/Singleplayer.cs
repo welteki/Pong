@@ -39,6 +39,7 @@ namespace Pong.ViewModels
             PauseCommand = new PauseCommand(this);
             MoveLeftCommand = new MoveLeftCommand(this);
             MoveRightCommand = new MoveRightCommand(this);
+            StopMovingCommand = new StopMovingCommand(this); 
 
             ResetGame();
         }
@@ -77,6 +78,11 @@ namespace Pong.ViewModels
         {
             paddle.NotMoving = false;
             paddle.MoveLeft = false;
+        }
+
+        public void PaddleNotMoving()
+        {
+            paddle.NotMoving = true;
         }
 
         private void ResetGame()
@@ -305,6 +311,12 @@ namespace Pong.ViewModels
             {
                 return true;
             }
+        }
+
+        public ICommand StopMovingCommand
+        {
+            get;
+            private set;
         }
 
         #endregion
