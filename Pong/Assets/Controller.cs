@@ -16,7 +16,7 @@ namespace Pong.Assets
             this.button = button;
         }
 
-        public string Button
+        public string Btn
         {
             get { return button; }
         }
@@ -27,7 +27,8 @@ namespace Pong.Assets
         private SerialPort sp;
         private DispatcherTimer timer;
         private byte[] btnstate;
-        private byte[] prevstate;
+        private int A = 0;
+        private int B = 0;
         private bool btnleft;
         private bool btnright;
 
@@ -53,7 +54,6 @@ namespace Pong.Assets
             timer.Tick += timer_Tick;
 
             btnstate = new byte[2];
-            prevstate = new byte[2];
         }
 
         private void timer_Tick(object sender, EventArgs e)
@@ -69,11 +69,16 @@ namespace Pong.Assets
 
         private void CheckChange()
         {
-            if (prevstate[0] != btnstate[0])
+            if (btnstate[0] != A)
+            {
                 onStateChanged("btnLeft");
-            if (prevstate[1] != btnstate[1])
+                A = btnstate[0];
+            }
+            if (btnstate[1] != B)
+            {
                 onStateChanged("btnRight");
-            prevstate = btnstate;
+                B = btnstate[1];
+            }    
         }
 
         private void GetBtnState()
