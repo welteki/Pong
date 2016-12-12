@@ -29,8 +29,6 @@ namespace Pong.Assets
         private byte[] btnstate;
         private int A = 0;
         private int B = 0;
-        private bool btnleft;
-        private bool btnright;
 
         public delegate void StateChangedEventHandler(object source, StateChangedEventArgs args);
 
@@ -118,12 +116,6 @@ namespace Pong.Assets
         {
             sp.Close();
             timer.Stop();
-        }
-
-        public bool BtnLeft
-        {
-            get { return btnleft; }
-            private set { btnleft = value; }
         }
     }
 }
