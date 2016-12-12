@@ -27,7 +27,7 @@
         </Border>
         <Button Command="{Binding StartCommand}" x:Name="btnStart" Content="New Game" HorizontalAlignment="Left" Margin="20,20,0,0" VerticalAlignment="Top" Width="100" Background="#FF090909" Foreground="White" BorderBrush="White" Height="29" BorderThickness="2" Style="{StaticResource PongButton}"/>
         <Button Command="{Binding StopCommand}" x:Name="btnQuit" Content="Quit" HorizontalAlignment="Left" Margin="135,20,0,0" VerticalAlignment="Top" Width="101" Foreground="White" Background="Black" BorderBrush="White" Height="29" BorderThickness="2" Click="btnQuit_Click" Style="{StaticResource PongButton}"/>
-        <ToggleButton  x:Name="btnPlayPause" Checked="btnPlayPause_Checked" Unchecked="btnPlayPause_Unchecked" HorizontalAlignment="Left" Margin="475,105,0,0" VerticalAlignment="Top" Width="36" Foreground="White" Background="Black" BorderBrush="White" Height="30" BorderThickness="2">
+        <ToggleButton  x:Name="btnPlayPause" Checked="btnPlayPause_Checked" Unchecked="btnPlayPause_Unchecked" HorizontalAlignment="Left" Margin="495,100,0,0" VerticalAlignment="Top" Width="25" Foreground="White" Background="{x:Null}" BorderBrush="White" Height="25" BorderThickness="0" Style="{DynamicResource PlayPauseButton}">
             <Image Name="imgPlayPause" Source="../Resources/Images/Pause.png"/>
         </ToggleButton>
     </Grid>

@@ -31,12 +31,14 @@ namespace Pong.Views
             singleplayer = new Singleplayer();
             DataContext = singleplayer;
 
+            play = new BitmapImage();
             play.BeginInit();
-            play.UriSource = new System.Uri("../Resources/Images/Play.png");
+            play.UriSource = new System.Uri("../Resources/Images/Play.png", UriKind.Relative);
             play.EndInit();
 
+            pause = new BitmapImage();
             pause.BeginInit();
-            pause.UriSource = new System.Uri("../Resources/Images/Pause.png");
+            pause.UriSource = new System.Uri("../Resources/Images/Pause.png", UriKind.Relative);
             pause.EndInit();
         }
 
