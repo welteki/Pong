@@ -9,6 +9,6 @@
 
     <Grid HorizontalAlignment="Center">
         <Label x:Name="label" Content="Pong" HorizontalAlignment="Center" Margin="212,10,212,304" VerticalAlignment="Center" Foreground="White" FontSize="48" FontWeight="Bold"/>
-        <Button x:Name="button" Content="Play" Margin="231,133,231,224" Width="88" BorderThickness="2" Foreground="White" BorderBrush="#FFF9F8F8" Background="Black" Click="button_Click" Height="31"/>
+        <Button x:Name="button" Content="Play" Margin="231,133,231,224" Width="88" BorderThickness="2" Foreground="White" BorderBrush="#FFF9F8F8" Background="Black" Click="button_Click" Height="31" Style="{StaticResource PongButton}"/>
     </Grid>
 </Page>

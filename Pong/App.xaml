@@ -17,7 +17,8 @@
         <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD"/>
         <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070"/>
         <SolidColorBrush x:Key="Button.MouseOver.Background" Color="White"/>
-        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="Black"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="White"/>
+        <SolidColorBrush x:Key="Button.MouseOver.Text" Color="Black"/>
         <SolidColorBrush x:Key="Button.Pressed.Background" Color="#00000000"/>
         <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF616161"/>
         <SolidColorBrush x:Key="Button.Disabled.Background" Color="Black"/>
@@ -45,7 +46,7 @@
                             <Trigger Property="IsMouseOver" Value="true">
                                 <Setter Property="Background" TargetName="border" Value="{StaticResource Button.MouseOver.Background}"/>
                                 <Setter Property="BorderBrush" TargetName="border" Value="{StaticResource Button.MouseOver.Border}"/>
-                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.MouseOver.Border}"/>
+                                <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.MouseOver.Text}"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="true">
                                 <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
