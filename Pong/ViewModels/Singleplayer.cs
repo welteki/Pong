@@ -1,4 +1,5 @@
-﻿using Pong.Commands;
+﻿using Pong.Assets;
+using Pong.Commands;
 using Pong.Models;
 using System;
 using System.Collections.Generic;
@@ -18,8 +19,29 @@ namespace Pong.ViewModels
         private Ball ball;
         private Paddle paddle;
         private ScoreBoard scoreboard;
+        private Controller controller;
         private DispatcherTimer timer;
         private Vector z;
+
+        public delegate void CollisionEventHandler(object source, EventArgs args);
+
+        public event CollisionEventHandler Collision;
+
+        protected virtual void onCollsion()
+        {
+            if (Collision != null)
+                Collision(this, EventArgs.Empty);
+        }
+
+        public delegate void MissEventHandler(object source, EventArgs args);
+
+        public event MissEventHandler Miss;
+
+        protected virtual void onMiss()
+        {
+            if (Miss != null)
+                Miss(this, EventArgs.Empty);
+        }
 
         public Singleplayer()
         {
@@ -27,6 +49,7 @@ namespace Pong.ViewModels
             ball = new Ball();
             paddle = new Paddle();
             scoreboard = new ScoreBoard();
+            controller = new Controller();
 
             timer = new DispatcherTimer();
             timer.Interval = new TimeSpan(0, 0, 0, 0, 10);
@@ -39,9 +62,9 @@ namespace Pong.ViewModels
             PauseCommand = new PauseCommand(this);
             MoveLeftCommand = new MoveLeftCommand(this);
             MoveRightCommand = new MoveRightCommand(this);
-            StopMovingCommand = new StopMovingCommand(this); 
+            StopMovingCommand = new StopMovingCommand(this);
 
-            ResetGame();
+            InitializeGame();
         }
 
 
@@ -51,11 +74,13 @@ namespace Pong.ViewModels
         {
             ResetGame();
             timer.Start();
+            playfield.GameActive = true;
         }
 
         public void StopGame()
         {
             timer.Stop();
+            playfield.GameActive = false;
         }
 
         public void PauseGame()
@@ -85,11 +110,17 @@ namespace Pong.ViewModels
             paddle.NotMoving = true;
         }
 
-        private void ResetGame()
+        private void InitializeGame()
         {
             playfield.Height = 227;
             playfield.Width = 448;
+            playfield.GameActive = false;
 
+            ResetGame();
+        }
+
+        private void ResetGame()
+        {
             scoreboard.Score = 0;
 
             ball.X = 50;
@@ -144,16 +175,26 @@ namespace Pong.ViewModels
         private void CheckCollision()
         {
             if (ball.Y <= 0)
+            {
                 z.Y = -z.Y;
+                onCollsion();
+            }
             else if (ball.X <= 0 || ball.X >= playfield.Width - ball.Size)
+            {
                 z.X = -z.X;
+                onCollsion();
+            }
             else if (CheckPadCollision())
             {
                 ChangeAngle();
                 scoreboard.Score += 1;
+                onCollsion();
             }
             else if (ball.Y > playfield.Height)
+            {
                 ResetGame();
+                onMiss();
+            }
         }
 
         /// <summary>
@@ -186,7 +227,7 @@ namespace Pong.ViewModels
         {
             if (paddle.X <= 0)
                 paddle.CanMoveLeft = false;
-            else 
+            else
                 paddle.CanMoveLeft = true;
 
             if (paddle.X >= playfield.Width - paddle.Width)
