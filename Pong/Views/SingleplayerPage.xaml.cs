@@ -33,14 +33,16 @@ namespace Pong.Views
 
             play = new BitmapImage();
             play.BeginInit();
-            play.UriSource = new System.Uri("../Resources/Images/Play.png", UriKind.Relative);
+            play.UriSource = new Uri("../Resources/Images/Play.png", UriKind.Relative);
             play.EndInit();
 
             pause = new BitmapImage();
             pause.BeginInit();
-            pause.UriSource = new System.Uri("../Resources/Images/Pause.png", UriKind.Relative);
+            pause.UriSource = new Uri("../Resources/Images/Pause.png", UriKind.Relative);
             pause.EndInit();
         }
+
+        #region Graphical Interaction
 
         private void btnPlayPause_Checked(object sender, RoutedEventArgs e)
         {
@@ -54,6 +56,10 @@ namespace Pong.Views
             imgPlayPause.Source = pause;
         }
 
+        #endregion
+
+        #region KeyBoard Interaction
+
         private void Page_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Left)
@@ -61,6 +67,8 @@ namespace Pong.Views
             if (e.Key == Key.Right)
                 singleplayer.StopMovingCommand.Execute(null);
         }
+
+        #endregion
 
         private void btnQuit_Click(object sender, RoutedEventArgs e)
         {

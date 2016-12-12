@@ -11,6 +11,7 @@ namespace Pong.Models
     {
         private double height;
         private double width;
+        private bool gameactive;
 
         public double Height
         {
@@ -35,6 +36,19 @@ namespace Pong.Models
             {
                 width = value;
                 onPropertyChanged("Width");
+            }
+        }
+
+        public bool GameActive
+        {
+            get
+            {
+                return gameactive;
+            }
+            set
+            {
+                gameactive = value;
+                onPropertyChanged("GameActive");
             }
         }
 
