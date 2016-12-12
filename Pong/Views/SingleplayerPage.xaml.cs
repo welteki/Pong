@@ -1,4 +1,5 @@
-﻿using Pong.ViewModels;
+﻿using Pong.Assets;
+using Pong.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,7 @@ namespace Pong.Views
     public partial class SingleplayerPage : Page
     {
         private Singleplayer singleplayer;
+        private Controller controller;
         private BitmapImage play;
         private BitmapImage pause;
 
@@ -30,6 +32,12 @@ namespace Pong.Views
             InitializeComponent();
             singleplayer = new Singleplayer();
             DataContext = singleplayer;
+
+            controller = new Controller();
+            controller.StateChanged += Controller_StateChanged;
+
+            singleplayer.Collision += Collision;
+            singleplayer.Miss += Miss;
 
             play = new BitmapImage();
             play.BeginInit();
@@ -70,9 +78,37 @@ namespace Pong.Views
 
         #endregion
 
+        #region Controller Interaction
+
+        private void Collision(object sender, EventArgs e)
+        {
+            controller.BlinkGreen();
+        }
+
+        private void Miss(object sender, EventArgs e)
+        {
+            controller.BlinkRed();
+        }
+
+        private void Controller_StateChanged(object sender, StateChangedEventArgs e)
+        {
+            if (e.Btn == "btnLeft")
+                singleplayer.MoveLeftCommand.Execute(null);
+            if (e.Btn == "btnRight")
+                singleplayer.MoveRightCommand.Execute(null);
+        }
+
+        #endregion
+
+        private void btnStart_Click(object sender, RoutedEventArgs e)
+        {
+            controller.openPort();
+        }
+
         private void btnQuit_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService.Navigate(new MainPage());
+            controller.closePort();
         }
     }
 }
