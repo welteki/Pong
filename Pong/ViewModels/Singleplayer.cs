@@ -41,7 +41,7 @@ namespace Pong.ViewModels
             MoveRightCommand = new MoveRightCommand(this);
             StopMovingCommand = new StopMovingCommand(this); 
 
-            ResetGame();
+            InitializeGame();
         }
 
 
@@ -51,11 +51,13 @@ namespace Pong.ViewModels
         {
             ResetGame();
             timer.Start();
+            playfield.GameActive = true;
         }
 
         public void StopGame()
         {
             timer.Stop();
+            playfield.GameActive = false;
         }
 
         public void PauseGame()
@@ -85,11 +87,17 @@ namespace Pong.ViewModels
             paddle.NotMoving = true;
         }
 
-        private void ResetGame()
+        private void InitializeGame()
         {
             playfield.Height = 227;
             playfield.Width = 448;
+            playfield.GameActive = false;
 
+            ResetGame();
+        }
+
+        private void ResetGame()
+        {
             scoreboard.Score = 0;
 
             ball.X = 50;
