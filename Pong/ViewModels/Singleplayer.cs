@@ -129,7 +129,7 @@ namespace Pong.ViewModels
 
             ball.X = playfield.Width / 2;
             ball.Y = playfield.Height / 2;
-            ball.Angle = rnd.Next(0,181);
+            ball.Angle = rnd.Next(45,136);
             ball.Speed = 3;
             ball.Size = 10;
 
@@ -137,7 +137,7 @@ namespace Pong.ViewModels
             paddle.Height = 10;
             paddle.Y = playfield.Height - 10 - paddle.Height;
             paddle.X = playfield.Width / 2 - paddle.Width / 2;
-            paddle.Speed = 2;
+            paddle.Speed = 2.5;
             paddle.NotMoving = true;
 
 
