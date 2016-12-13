@@ -100,11 +100,13 @@ namespace Pong.ViewModels
 
         private void ResetGame()
         {
+            Random rnd = new Random();
+
             scoreboard.Score = 0;
 
-            ball.X = 50;
-            ball.Y = 50;
-            ball.Angle = 225;
+            ball.X = playfield.Width / 2;
+            ball.Y = playfield.Height / 2;
+            ball.Angle = rnd.Next(0,181);
             ball.Speed = 3;
             ball.Size = 10;
 
