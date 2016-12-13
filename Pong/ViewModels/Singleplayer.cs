@@ -89,8 +89,8 @@ namespace Pong.ViewModels
 
         private void InitializeGame()
         {
-            playfield.Height = 227;
-            playfield.Width = 448;
+            playfield.Height = 278 - 10;
+            playfield.Width = 510 - 10;
             playfield.GameActive = false;
 
             ResetGame();
