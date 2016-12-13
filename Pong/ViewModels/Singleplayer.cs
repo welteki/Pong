@@ -21,6 +21,7 @@ namespace Pong.ViewModels
         private ScoreBoard scoreboard;
         private Controller controller;
         private DispatcherTimer timer;
+        private bool running = false;
         private Vector z;
 
         public delegate void CollisionEventHandler(object source, EventArgs args);
@@ -75,6 +76,7 @@ namespace Pong.ViewModels
             ResetGame();
             timer.Start();
             playfield.GameActive = true;
+            running = true;
         }
 
         public void StopGame()
@@ -121,11 +123,13 @@ namespace Pong.ViewModels
 
         private void ResetGame()
         {
+            Random rnd = new Random();
+
             scoreboard.Score = 0;
 
-            ball.X = 50;
-            ball.Y = 50;
-            ball.Angle = 225;
+            ball.X = playfield.Width / 2;
+            ball.Y = playfield.Height / 2;
+            ball.Angle = rnd.Next(0,181);
             ball.Speed = 3;
             ball.Size = 10;
 
@@ -145,7 +149,7 @@ namespace Pong.ViewModels
         /// </summary>
         private void ChangeAngle()
         {
-            double factor = (paddle.X + (paddle.Width / 2) - ball.X) / (paddle.Width / 2);     //returns value between -1 and 1
+            double factor = (paddle.X + (paddle.Width / 2) - ball.X + ball.Size/2) / (paddle.Width / 2);     //returns value between -1 and 1
             double angle = Convert.VectorConverter.VectorToAngle(z) - 180;
 
             if (angle < 90)
@@ -292,7 +296,7 @@ namespace Pong.ViewModels
         {
             get
             {
-                if (timer.IsEnabled)
+                if (running)
                     return false;
                 return true;
             }
@@ -308,7 +312,7 @@ namespace Pong.ViewModels
         {
             get
             {
-                if (timer.IsEnabled)
+                if (running)
                     return true;
                 return false;
             }
