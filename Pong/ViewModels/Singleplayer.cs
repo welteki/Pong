@@ -124,7 +124,7 @@ namespace Pong.ViewModels
         /// </summary>
         private void ChangeAngle()
         {
-            double factor = (paddle.X + (paddle.Width / 2) - ball.X) / (paddle.Width / 2);     //returns value between -1 and 1
+            double factor = (paddle.X + (paddle.Width / 2) - ball.X + ball.Size/2) / (paddle.Width / 2);     //returns value between -1 and 1
             double angle = Convert.VectorConverter.VectorToAngle(z) - 180;
 
             if (angle < 90)
