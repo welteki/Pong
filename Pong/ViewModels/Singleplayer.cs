@@ -19,6 +19,7 @@ namespace Pong.ViewModels
         private Paddle paddle;
         private ScoreBoard scoreboard;
         private DispatcherTimer timer;
+        private bool running = false;
         private Vector z;
 
         public Singleplayer()
@@ -52,6 +53,7 @@ namespace Pong.ViewModels
             ResetGame();
             timer.Start();
             playfield.GameActive = true;
+            running = true;
         }
 
         public void StopGame()
@@ -259,7 +261,7 @@ namespace Pong.ViewModels
         {
             get
             {
-                if (timer.IsEnabled)
+                if (running)
                     return false;
                 return true;
             }
@@ -275,7 +277,7 @@ namespace Pong.ViewModels
         {
             get
             {
-                if (timer.IsEnabled)
+                if (running)
                     return true;
                 return false;
             }
