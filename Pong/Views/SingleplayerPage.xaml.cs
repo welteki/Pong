@@ -62,10 +62,18 @@ namespace Pong.Views
 
         private void Page_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Left)
-                singleplayer.StopMovingCommand.Execute(null);
-            if (e.Key == Key.Right)
-                singleplayer.StopMovingCommand.Execute(null);
+            switch (e.Key)
+            {
+                case Key.Left:
+                    singleplayer.StopMovingCommand.Execute(null);
+                    break;
+                case Key.Right:
+                    singleplayer.StopMovingCommand.Execute(null);
+                    break;
+                case Key.Enter:
+                    btnPlayPause.RaiseEvent(new RoutedEventArgs(MenuItem.ClickEvent));
+                    break;
+            }
         }
 
         #endregion
